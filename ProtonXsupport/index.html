@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProtonX</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=gg+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+    :root{
+      --bg: #0a0a0c;
+      --bg-panel: #1c1d20;
+      --bg-card: #17181a;
+      --bg-elevated: #232427;
+      --line: #303136;
+      --text: #f5f5f7;
+      --text-dim: #b0b2b8;
+      --text-faint: #75777d;
+      --blurple: #121313;
+      --blurple-hover: #0f0f0f;
+      --green: #2fd06e;
+    }
+    *{box-sizing:border-box; margin:0; padding:0;}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'gg Sans','Space Grotesk', sans-serif;
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none;}
+    .mono{font-family:'IBM Plex Mono', monospace;}
+    .wrap{max-width:760px; margin:0 auto; padding:0 20px;}
+
+    nav{
+      position:sticky; top:0; z-index:50;
+      background:rgba(10,10,12,0.85);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    nav .wrap{display:flex; align-items:center; justify-content:space-between; height:58px; max-width:760px;}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; padding-left:3%;}
+    .nav-links{display:flex; gap:26px; font-size:13px; color:var(--text-dim); font-weight:500;}
+    .nav-links a:hover{color:var(--text);}
+    @media (max-width:600px){ .nav-links{display:none;} }
+
+    .profile-shell{padding:56px 20px 0; position:relative; overflow:hidden;}
+    .glow{
+      position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+      width:1000px; height:520px;
+      background-image:url('assets/banner.png');
+      background-size:cover; background-position:center;
+      filter:blur(70px) saturate(160%) brightness(0.55);
+      opacity:0.75;
+      -webkit-mask-image:radial-gradient(ellipse 480px 320px at center, #000 0%, transparent 75%);
+      mask-image:radial-gradient(ellipse 480px 320px at center, #000 0%, transparent 75%);
+      pointer-events:none; z-index:0;
+    }
+    .profile-card{
+      max-width:760px; margin:0 auto;
+      background:linear-gradient(180deg, rgba(28,29,32,0.92), rgba(23,24,26,0.98));
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.06);
+      position:relative; z-index:1;
+      box-shadow:0 30px 60px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .banner{
+      height:150px;
+      width:100%;
+      object-fit:cover;
+      display:block;
+      background:#141416;
+      -webkit-mask-image:linear-gradient(180deg, #000 65%, transparent 100%);
+      mask-image:linear-gradient(180deg, #000 65%, transparent 100%);
+    }
+    .profile-body{padding:0 24px 24px;}
+    .avatar-row{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      margin-top:-44px;
+    }
+    .avatar{
+      width:92px; height:92px; border-radius:50%;
+      border:6px solid var(--bg-panel);
+      object-fit:cover;
+      display:block;
+      position:relative;
+      background:var(--bg-elevated);
+      box-shadow:0 6px 18px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.15);
+    }
+    .avatar-wrap{position:relative; width:92px; height:92px;}
+    .status-dot{
+      position:absolute; bottom:2px; right:2px;
+      width:22px; height:22px; border-radius:50%;
+      background:linear-gradient(160deg, #5cf39a, var(--green));
+      border:4px solid var(--bg-panel);
+      box-shadow:inset 0 1px 1px rgba(255,255,255,0.6);
+    }
+    .invite-btn{
+      margin-bottom:10px;
+      background:linear-gradient(160deg, #050505 0%, var(--blurple) 50%, #030303 100%);
+      color:#fff; font-weight:600; font-size:14px;
+      padding:10px 18px; border-radius:10px;
+      box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.5),
+        inset 0 -8px 10px rgba(0,0,0,0.3),
+        0 6px 16px rgba(5, 5, 5, 0.35);
+      transition:filter 0.15s ease;
+    }
+    .invite-btn:hover{filter:brightness(1.08);}
+
+    .name-row{display:flex; align-items:center; gap:8px; margin-top:14px;}
+    .name-row h1{font-size:22px; font-weight:700;}
+    .app-tag{
+      display:inline-flex; align-items:center; gap:4px;
+      background:linear-gradient(160deg, #050505 0%, var(--blurple) 100%);
+      box-shadow:inset 0 1px 1px rgba(255,255,255,0.5), inset 0 -4px 6px rgba(0,0,0,0.25);
+      color:#fff;
+      font-size:10px; font-weight:700; letter-spacing:0.02em;
+      padding:2px 6px; border-radius:4px;
+      text-transform:uppercase;
+    }
+    .username{font-size:14px; color:var(--text-faint); margin-top:2px;}
+
+    .divider{height:1px; background:var(--line); margin:18px 0;}
+
+    .about-label{font-size:12px; font-weight:700; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:8px;}
+    .about-text{font-size:14px; color:var(--text-dim);}
+
+    .stat-grid{display:flex; gap:28px; margin-top:20px;}
+    .stat-num{font-size:18px; font-weight:700;}
+    .stat-label{font-size:12px; color:var(--text-faint);}
+
+    .member-tags{display:flex; gap:8px; margin-top:16px; flex-wrap:wrap;}
+    .member-tag{
+      background:var(--bg-elevated); color:var(--text-dim);
+      font-size:12px; font-weight:500; padding:6px 12px; border-radius:8px;
+      display:flex; align-items:center; gap:6px;
+    }
+
+    .section{padding:64px 0; border-bottom:1px solid var(--line);}
+    .section-head{margin-bottom:36px;}
+    .section h2{font-size:26px; font-weight:700; letter-spacing:-0.01em;}
+    .section-head p{color:var(--text-dim); margin-top:10px; font-size:14px;}
+
+    .cmd-group{
+      background:linear-gradient(180deg, rgba(35,36,39,0.9), rgba(23,24,26,0.95));
+      border:1px solid rgba(255,255,255,0.06); border-radius:14px;
+      margin-bottom:16px; overflow:hidden;
+      box-shadow:0 10px 30px -14px rgba(0,0,0,0.6);
+    }
+    .cmd-group-head{
+      padding:14px 20px; font-size:13px; font-weight:700; color:var(--text);
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0));
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      display:flex; align-items:center; gap:8px;
+    }
+    .cmd-row{
+      display:flex; align-items:center; gap:16px;
+      padding:12px 20px; border-bottom:1px solid var(--line);
+    }
+    .cmd-row:last-child{border-bottom:none;}
+    .cmd-name{font-family:'IBM Plex Mono', monospace; font-size:13px; color:#ffffff; min-width:150px;}
+    .cmd-desc{font-size:13px; color:var(--text-dim); flex:1;}
+
+    .note{
+      background:linear-gradient(180deg, rgba(35,36,39,0.9), rgba(23,24,26,0.95));
+      border:1px solid rgba(255,255,255,0.06); border-radius:14px;
+      padding:20px 22px; font-size:13px; color:var(--text-dim);
+      box-shadow:0 10px 30px -14px rgba(0,0,0,0.6);
+    }
+    .note strong{color:var(--text);}
+
+    footer{padding:30px 0; text-align:center; font-size:12px; color:var(--text-faint);}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">ProtonX</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#commands">Commands</a>
+      <a href="#updates">Updates</a>
+    </div>
+  </div>
+</nav>
+
+<div class="profile-shell">
+  <div class="glow"></div>
+  <div class="profile-card">
+    <img class="banner" src="assets/banner.png" alt="ProtonX banner">
+    <div class="profile-body">
+      <div class="avatar-row">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/profile.png" alt="ProtonX avatar">
+          <span class="status-dot"></span>
+        </div>
+        <a href="https://discord.com/oauth2/authorize?client_id=1527346208232706148&permissions=8&integration_type=0&scope=applications.commands+bot" class="invite-btn">Invite Me</a>
+      </div>
+      <div class="name-row">
+        <h1>ProtonX</h1>
+        <span class="app-tag">✓ App</span>
+      </div>
+      <div class="username mono">protonx#2988</div>
+
+      <div class="divider"></div>
+
+      <div class="about-label">About</div>
+      <p class="about-text">This bot stops any nuke attempts on your server and includes various moderation commands, auto-punishes unauthorized channel, role, and permission changes in real time. Type <span class="mono" style="color:#ffffff">!xhelp</span> anytime to see the full command list in Discord.</p>
+
+      <div class="stat-grid">
+        <div><div class="stat-num" id="serversCount">Loading...</div><div class="stat-label">Servers</div></div>
+        <div><div class="stat-num" id="usersCount">Loading...</div><div class="stat-label">Users</div></div>
+        <div><div class="stat-num" id="commandsCount">Loading...</div><div class="stat-label">Commands</div></div>
+      </div>
+
+      <div class="member-tags">
+        <div class="member-tag">Anti-raid</div>
+        <div class="member-tag">Multipurpose</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <p>Once enabled, ProtonX monitors your server's audit log in real time. If a non-whitelisted user performs a dangerous action, their roles are stripped and they're immediately kicked, then the action they took gets reverted.</p>
+    </div>
+    <div class="note">
+      <strong>Setup requirement:</strong> Make sure the ProtonX role is placed at the very top of your role hierarchy, above all other roles. Give ProtonX all permissions, Administrator is recommended, so it can properly monitor, punish, and revert any nuke attempts without restriction.<br><br>
+      <strong>Detected actions:</strong> creating/deleting channels or roles, granting dangerous permissions, banning/kicking members, changing the server name or icon, and creating webhooks. Per-permission whitelisting is also available for trusted mods.
+    </div>
+  </div>
+</section>
+
+<section class="section" id="commands">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Command list</h2>
+      <p>Prefix: <span class="mono" style="color:#ffffff">!x</span></p>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Main command</div>
+      <div class="cmd-row"><div class="cmd-name">!xhelp</div><div class="cmd-desc">Shows the full, up-to-date command list right inside Discord. Start here.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Anti-raid</div>
+      <div class="cmd-row"><div class="cmd-name">!xanti-on / off</div><div class="cmd-desc">Turns the server's anti-nuke protection on or off.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xalink-on / off</div><div class="cmd-desc">Configures anti-link protection (Discord invites, image links, all links).</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xalinkbypass</div><div class="cmd-desc">Choose categories that are bypassed by anti-link.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xaspam-on / off</div><div class="cmd-desc">Configures the anti-spam threshold and timeout duration.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Moderation</div>
+      <div class="cmd-row"><div class="cmd-name">!xautorole</div><div class="cmd-desc">Sets a role to be automatically given to new members.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xlogs</div><div class="cmd-desc">Configures message, profile, voice, and member logs.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xrole</div><div class="cmd-desc">Gives or removes a role from a member.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xunwhitelist</div><div class="cmd-desc">Removes a user from the whitelist.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xvc</div><div class="cmd-desc">Sets up join-to-create voice channels.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xwhitelist</div><div class="cmd-desc">Whitelists a user for specific anti-nuke permissions.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xwipe</div><div class="cmd-desc">Bulk-deletes messages in a channel.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xwlist</div><div class="cmd-desc">Shows the list of whitelisted users.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Utility</div>
+      <div class="cmd-row"><div class="cmd-name">!xafk</div><div class="cmd-desc">Sets an AFK status with a reason.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xafklist</div><div class="cmd-desc">Shows who is currently AFK.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xav</div><div class="cmd-desc">Shows a user's avatar.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xbanner</div><div class="cmd-desc">Shows a user's profile banner.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xbot</div><div class="cmd-desc">Information about ProtonX itself.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xemojis / !xstickers</div><div class="cmd-desc">Lists the server's custom emojis or stickers.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xinfo</div><div class="cmd-desc">Shows server details (members, roles, boosts, and more).</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xrolelist</div><div class="cmd-desc">Lists all of the server's roles.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="updates">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Previous updates</h2>
+      <p>All the latest features and fixes added to ProtonX.</p>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">8/7/26</div>
+      <div class="cmd-row"><div class="cmd-name">!xalink-on/off</div><div class="cmd-desc"><span class="mono"> </span> enables anti-link protection against any link attempt, including Discord invites, image links, and other URLs. Users with the Bypass Anti-Link permission are not affected. Use <span class="mono">!xalinkbypass</span> to select a category to bypass, and <span class="mono">!xwhitelist</span> to grant users the bypass link permission.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xaspam-on/off</div><div class="cmd-desc"><span class="mono"></span> enables anti-spam protection with customizable settings. Choose the message threshold and timeout duration for detected spammers.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xemojis</div><div class="cmd-desc">Shows all server emojis with their images and names.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xstickers</div><div class="cmd-desc">Shows all server stickers with their images and names.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xautorole</div><div class="cmd-desc">Sets a role to be automatically given to new members. Use <span class="mono">!xautorole off</span> to disable.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex; align-items:center; justify-content:space-between; max-width:100%; padding:0 20px;">
+    <span>2026 All Rights Reserved.</span>
+    <span>Terms of Service / Support</span>
+  </div>
+</footer>
+
+<script>
+const API_URL = 'https://protonx-production-776d.up.railway.app';
+
+async function loadStats() {
+    try {
+        const response = await fetch(`${API_URL}/api/stats`);
+        const data = await response.json();
+
+        document.getElementById('serversCount').textContent = data.totalServers + '';
+        document.getElementById('usersCount').textContent = data.totalUsers + '';
+        document.getElementById('commandsCount').textContent = data.totalCommands + '';
+    } catch (err) {
+        console.error('Failed to load stats:', err);
+        document.getElementById('serversCount').textContent = '---';
+        document.getElementById('usersCount').textContent = '---';
+        document.getElementById('commandsCount').textContent = '---';
+    }
+}
+
+// Load stats on page load
+loadStats();
+
+// Refresh every 30 seconds
+setInterval(loadStats, 30000);
+</script>
+
+</body>
+</html>
