@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProtonX</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="index.html">ProtonX</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#commands">Commands</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<div class="profile-shell">
+  <div class="glow"></div>
+  <div class="profile-card">
+    <img class="banner" src="assets/banner.png" alt="ProtonX banner">
+    <div class="profile-body">
+      <div class="avatar-row">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/profile.png" alt="ProtonX avatar">
+          <span class="status-dot"></span>
+        </div>
+        <a href="https://discord.com/oauth2/authorize?client_id=1527346208232706148&permissions=8&integration_type=0&scope=applications.commands+bot" class="invite-btn" target="_blank" rel="noopener">Invite Me</a>
+      </div>
+      <div class="name-row"><h1>ProtonX</h1><span class="app-tag">&#10003; App</span></div>
+      <div class="username mono">protonx#2988</div>
+      <div class="divider"></div>
+      <div class="about-label">About</div>
+      <p class="about-text">This bot stops any nuke attempts on your server and includes various moderation commands, auto-punishes unauthorized channel, role, and permission changes in real time. Type <span class="mono hl">!xhelp</span> anytime to see the full command list in Discord.</p>
+      <div class="stat-grid">
+        <div><div class="stat-num" id="serversCount">Loading...</div><div class="stat-label">Servers</div></div>
+        <div><div class="stat-num" id="usersCount">Loading...</div><div class="stat-label">Users</div></div>
+        <div><div class="stat-num" id="commandsCount">Loading...</div><div class="stat-label">Commands</div></div>
+      </div>
+      <div class="member-tags"><div class="member-tag">Anti-raid</div><div class="member-tag">Multipurpose Commands</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <p>Once enabled, ProtonX monitors your server's audit log in real time. If a non-whitelisted user performs a dangerous action, their roles are stripped and they're immediately kicked, then the action they took gets reverted.</p>
+    </div>
+    <div class="note">
+      <strong>Setup requirement:</strong> Make sure the ProtonX role is placed at the very top of your role hierarchy, above all other roles. Give ProtonX all permissions, Administrator is recommended, so it can properly monitor, punish, and revert any nuke attempts without restriction.<br><br>
+      <strong>Detected actions:</strong> creating/deleting channels or roles, granting dangerous permissions, banning/kicking members, changing the server name or icon, and creating webhooks. Per-permission whitelisting is also available for trusted mods.
+    </div>
+  </div>
+</section>
+
+<section class="section" id="commands">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Command list</h2>
+      <p>Prefix: <span class="mono hl">!x</span> (can be changed per server with <span class="mono hl">!xsetprefix</span>)</p>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Main command</div>
+      <div class="cmd-row"><div class="cmd-name">!xhelp</div><div class="cmd-desc">Shows the full, up-to-date command list right inside Discord. Start here.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xstatus</div><div class="cmd-desc">Shows which protections are on, your prefix, premium status, and whether the ProtonX role setup is correct.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Anti-raid</div>
+      <div class="cmd-row"><div class="cmd-name">!xanti-on / off</div><div class="cmd-desc">Turns the server's anti-nuke protection on or off.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xantibot-on / off</div><div class="cmd-desc">Blocks bots and webhooks from being added. When on, even whitelisted users are blocked.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xalink-on / off</div><div class="cmd-desc">Configures anti-link protection (Discord invites, image links, all links).</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xalinkbypass</div><div class="cmd-desc">Choose categories that are bypassed by anti-link.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xaspam-on / off</div><div class="cmd-desc">Configures the anti-spam threshold and timeout duration.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Moderation</div>
+      <div class="cmd-row"><div class="cmd-name">!xautorole</div><div class="cmd-desc">Sets a role to be automatically given to new members.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xlogs</div><div class="cmd-desc">Configures message, profile, voice, and member logs.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xrole</div><div class="cmd-desc">Gives or removes a role from a member.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xunwhitelist</div><div class="cmd-desc">Removes a user from the whitelist.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xvc</div><div class="cmd-desc">Sets up join-to-create voice channels.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xwhitelist</div><div class="cmd-desc">Whitelists a user for specific anti-nuke permissions.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xwipe</div><div class="cmd-desc">Bulk-deletes messages in a channel.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xwlist</div><div class="cmd-desc">Shows the list of whitelisted users.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xbypass</div><div class="cmd-desc">Gives a trusted user full owner-level command access. Server owner only, use with care.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xunbypass</div><div class="cmd-desc">Removes a user's bypass. Server owner only.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xbypasslist</div><div class="cmd-desc">Shows everyone who has bypass on this server.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetprefix</div><div class="cmd-desc">Sets a custom prefix for this server (1-2 characters).</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xresetprefix</div><div class="cmd-desc">Resets the prefix back to the default <span class="mono">!x</span>.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Utility</div>
+      <div class="cmd-row"><div class="cmd-name">!xafk</div><div class="cmd-desc">Sets an AFK status with a reason.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xafklist</div><div class="cmd-desc">Shows who is currently AFK.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xav</div><div class="cmd-desc">Shows a user's avatar.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xbanner</div><div class="cmd-desc">Shows a user's profile banner.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xbot</div><div class="cmd-desc">Information about ProtonX itself.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xemojis / !xstickers</div><div class="cmd-desc">Lists the server's custom emojis or stickers.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xinfo</div><div class="cmd-desc">Shows server details (members, roles, boosts, and more).</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xrolelist</div><div class="cmd-desc">Lists all of the server's roles.</div></div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-head">Premium</div>
+      <div class="cmd-row"><div class="cmd-name">!xsetembedcolor</div><div class="cmd-desc">Sets the embed sidebar color for this server. Accepts <span class="mono">#ff0000</span>, <span class="mono">ff0000</span> or <span class="mono">f00</span>.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetembed</div><div class="cmd-desc">Starts a new custom embed draft.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetauthor</div><div class="cmd-desc">Sets the embed's author text.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetmessage</div><div class="cmd-desc">Sets the embed's main message.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetfooter</div><div class="cmd-desc">Sets the embed's footer text.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetimage</div><div class="cmd-desc">Sets the small image (top right) from a URL or attachment.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetthumbnail</div><div class="cmd-desc">Sets the big image (bottom) from a URL or attachment.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetembedchannel</div><div class="cmd-desc">Chooses the channel the embed will be sent to.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsentembed</div><div class="cmd-desc">Sends the finished embed to one or more channels.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xresetembed</div><div class="cmd-desc">Clears the current embed draft.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetprofile</div><div class="cmd-desc">Sets a per-server bot avatar.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xsetbanner</div><div class="cmd-desc">Sets a per-server bot banner.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xresetprofile</div><div class="cmd-desc">Resets the per-server avatar to the default.</div></div>
+      <div class="cmd-row"><div class="cmd-name">!xresetbanner</div><div class="cmd-desc">Resets the per-server banner to the default.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>What is ProtonX?</summary>
+      <div class="faq-body">
+        <p>ProtonX is a Discord security and anti-raid/anti-nuke bot designed to help protect your server from malicious actions and unauthorized moderation activity, along with many multipurpose commands.</p>
+        <p>ProtonX can detect actions such as:</p>
+        <ul>
+          <li>Creating or deleting channels</li>
+          <li>Creating or deleting roles</li>
+          <li>Granting dangerous permissions</li>
+          <li>Banning or kicking members</li>
+          <li>Changing the server name or icon</li>
+          <li>Creating webhooks</li>
+          <li>Adding bots</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is ProtonX a powerful anti-nuke bot?</summary>
+      <div class="faq-body">
+        <p>We do not consider ProtonX to be the most powerful anti-nuke system. However, it is capable of detecting, stopping, and removing users who attempt to raid or nuke your server.</p>
+        <p>ProtonX is designed to provide an additional layer of protection and help minimize damage caused by malicious actions.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How do I set up ProtonX correctly?</summary>
+      <div class="faq-body">
+        <p>First of all, use <span class="mono hl">!xanti-on</span></p>
+        <p><strong>Setup requirement:</strong></p>
+        <ul>
+          <li>Make sure the ProtonX role is placed at the very top of your role hierarchy, above all other roles.</li>
+          <li>Give ProtonX all necessary permissions. Giving all permissions is recommended, so it can properly monitor, punish, and revert nuke attempts without unnecessary restrictions.</li>
+        </ul>
+        <p>If ProtonX does not have sufficient permissions or is placed below certain roles, it may not be able to properly take action against users with higher roles.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I whitelist trusted moderators?</summary>
+      <div class="faq-body">
+        <p>Yes. Use <span class="mono hl">!xwhitelist</span> for per-permission whitelisting, allowing you to give trusted moderators access to specific actions without triggering the protection system.</p>
+        <p>Once a user is whitelisted, they can bypass the configured protection for those actions.</p>
+        <p>Use <span class="mono hl">!xantibot-on</span> to ensure that users with full access cannot bypass protection for adding bots or creating webhooks. These actions will remain restricted exclusively to the server owner for additional security.</p>
+        <p>Use <span class="mono hl">!xantibot-off</span> to disable this restriction.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How can I view all ProtonX commands?</summary>
+      <div class="faq-body">
+        <p>To view the complete list of commands and available features, use: <span class="mono hl">!xhelp</span></p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <span>2026 All Rights Reserved.</span>
+    <span class="foot-links">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a class="support-link" href="https://discord.gg/s5rfU6Zj4c" target="_blank" rel="noopener">Contact Support</a>
+    </span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
